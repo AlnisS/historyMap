@@ -236,6 +236,21 @@ void bbuttons(float px, float py) { //px, py are offsets given to the function t
   }
 }
 
+void hbuttons(float px, float py) { //px, py are offsets given to the function to display at the right place
+
+  for (int i = 0; i < tl - 1; i++) {
+    float x = pxs[i];
+    float y = pys[i];
+    String t = pts[i];
+    String s = pss[i];
+    hb.ellipse(px + x, py + y, 5, 5);
+    hb.fill(0);
+    hb.rect(px + x - 60, py + y + 10, 120, 100);
+    hb.fill(255);
+    hb.text(t, px + x - 60, py + y + 10, 120, 100);
+    hb.noFill();
+  }
+}
 
 
 void draw() {
@@ -245,6 +260,7 @@ void draw() {
   
   //bbuttons(btdx(0, bmx), btdy(0, bmy));
   bbuttons(btdx(0, bmx), btdy(0, bmy));
+  hbuttons(htdx(0, hmx) - bmw, htdy(0, hmy));
   bb.endDraw();
   hb.endDraw();
   image(bb, 0, 0);
