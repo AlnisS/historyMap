@@ -227,12 +227,12 @@ void bbuttons(float px, float py) { //px, py are offsets given to the function t
     float y = pys[i];
     String t = pts[i];
     String s = pss[i];
-    ellipse(px + x, py + y, 5, 5);
-    fill(0);
-    rect(px + x - 60, py + y + 10, 120, 100);
-    fill(255);
-    text(t, px + x - 60, py + y + 10, 120, 100);
-    noFill();
+    bb.ellipse(px + x, py + y, 5, 5);
+    bb.fill(0);
+    bb.rect(px + x - 60, py + y + 10, 120, 100);
+    bb.fill(255);
+    bb.text(t, px + x - 60, py + y + 10, 120, 100);
+    bb.noFill();
   }
 }
 
@@ -242,10 +242,11 @@ void draw() {
   bb.beginDraw();
   hb.beginDraw();
   render();
+  
+  //bbuttons(btdx(0, bmx), btdy(0, bmy));
+  bbuttons(btdx(0, bmx), btdy(0, bmy));
   bb.endDraw();
   hb.endDraw();
   image(bb, 0, 0);
   image(hb, bmw, 0);
-  //bbuttons(btdx(0, bmx), btdy(0, bmy));
-  bbuttons(btdx(0, bmx), btdy(0, bmy));
 }
