@@ -4,13 +4,16 @@
  * fix htdx so that it draws at correct location
  */
 
-//is git working?
+
 
 //declare images for maps
 PImage bm; //baghdad map
 PImage bt; //baghdad thumbnail
 PImage hm; //heian-kyo map
 PImage ht; //heian-kyo thumbnail
+
+PGraphics bb; //buffers
+PGraphics hb;
 
 //declares buffers
 
@@ -139,33 +142,37 @@ void render() {
      * it gets the inverse of the converted coordinates (translation 0) so that they are positive image coordinates instead of negative display coordinates
      * the width and height is the window size
      */
+    bb.tint(255, 255);
     tmpi = bm.get(-1 * btdx(0, bmx), -1 * btdy(0, bmy), bmw, bmh); //gets baghdad map
-    image(tmpi, 0, 0); //draws temporary image that was retrieved earlier
+    bb.image(tmpi, 0, 0); //draws temporary image that was retrieved earlier
 
     //draws thumbnail
-    tint(255, 127);
-    image(bt, 0, 0);
-    noFill();
-    rect(-1 * btdx(0, bmx) / btp / bmz, -1 * btdy(0, bmy) / btp / bmz, bmw / btp / bmz, bmh / btp / bmz);
+    bb.tint(255, 127);
+    bb.image(bt, 0, 0);
+    bb.noFill();
+    bb.rect(-1 * btdx(0, bmx) / btp / bmz, -1 * btdy(0, bmy) / btp / bmz, bmw / btp / bmz, bmh / btp / bmz);
   }
   if (true) {
     //same as above, but with horizontal translation to get origin to match image origin
-    tint(255, 255);
+    hb.tint(255, 255);
     tmpi = hm.get(-1 * (htdx(0, hmx) - bmw), -1 * htdy(0, hmy), hmw, hmh); //gets heian-kyo map
-    image(tmpi, bmw, 0); //draws image
+    hb.image(tmpi, 0, 0); //draws image
 
     //draws thumbnail
-    tint(255, 127);
-    image(ht, bmw, 0);
-    noFill();
-    rect(bmw + -1 * (htdx(0, hmx) - bmw) / htp / hmz, -1 * htdy(0, hmy) / htp / hmz, hmw / htp / hmz, hmh / htp / hmz);
+    hb.tint(255, 127);
+    hb.image(ht, 0, 0);
+    hb.noFill();
+    hb.rect(bmw - bmw + -1 * (htdx(0, hmx) - bmw) / htp / hmz, -1 * htdy(0, hmy) / htp / hmz, hmw / htp / hmz, hmh / htp / hmz);
+    println(-1 * (htdx(0, hmx) - bmw), -1 * htdy(0, hmy));
   }
-
+  
   //draws mouse pointers
-  noFill();
-  stroke(255, 0, 0);
-  ellipse(bmx, bmy, 5, 5);
-  ellipse(hmx, hmy, 5, 5);
+  bb.noFill();
+  hb.noFill();
+  bb.stroke(255, 0, 0);
+  hb.stroke(255, 0, 0);
+  bb.ellipse(bmx, bmy, 5, 5);
+  hb.ellipse(hmx, hmy, 5, 5);
 }
 
 void settings() {
@@ -189,7 +196,8 @@ void setup() {
   blt = 0;
   hlt = 0;
 
-
+  bb = createGraphics(bmw, bmh);
+  hb = createGraphics(hmw, hmh);
 
   //table organization: x, y, tooltip, full text
 
@@ -231,7 +239,13 @@ void bbuttons(float px, float py) { //px, py are offsets given to the function t
 
 
 void draw() {
+  bb.beginDraw();
+  hb.beginDraw();
   render();
+  bb.endDraw();
+  hb.endDraw();
+  image(bb, 0, 0);
+  image(hb, bmw, 0);
   //bbuttons(btdx(0, bmx), btdy(0, bmy));
   bbuttons(btdx(0, bmx), btdy(0, bmy));
 }
