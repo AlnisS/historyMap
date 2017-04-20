@@ -95,7 +95,6 @@ int btdy(float ta, float myi) { //same as btdx, but for y
   return int((myi / bmh) * (bmh - bm.height) + ta * bmz);
 }
 int htdx(float ta, float mxi) { //heian-kyo to display x, given x on unscaled map
-  //same as the others, but with an extra translation to the right to account for the display origin being to the right
   return int(((mxi - bmw) / hmw) * (hmw - hm.width) + ta * hmz);
 }
 int htdy(float ta, float myi) { //same as htdx, but for y
@@ -256,12 +255,12 @@ void hbuttons(float px, float py) { //px, py are offsets given to the function t
   }
 }
 
-void dt(float mcx, float mcy) {
+void bdt(float mcx, float mcy) {
   float x = -1000;
   float y = -1000;
   int i = 0;
   String s = "";
-  while (i < tl - 1 && (sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)) >= 32)) {
+  while (i <= tlb && (sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)) >= 32)) {
     x = pxs[i];
     y = pys[i];
     s = pss[i];
@@ -269,7 +268,35 @@ void dt(float mcx, float mcy) {
     y = y + btdy(0, mcy);
     
     i++;
-    println(sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)));
+    //println(sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)));
+  }
+  i--;
+  
+  if (sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)) < 32) {
+    
+    fill(0);
+    rect(0, bmh - tbh, bmw + hmw, tbh);
+    fill(255);
+    text(s, 0, bmh - tbh, bmw + hmw, tbh);
+    noFill();
+  }
+}
+
+void hdt(float mcx, float mcy) {
+  float x = -1000;
+  float y = -1000;
+  int i = tlb + 1;
+  String s = "";
+  while (i < tl - 1 && (sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)) >= 32)) {
+    x = pxs[i];
+    y = pys[i];
+    s = pss[i];
+    x = x + htdx(0, mcx + bmw);
+    y = y + htdy(0, mcy);
+    
+    i++;
+    //println(sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)));
+    println(mcx - x, x, mcx, hmx, hmx - bmw, htdx(0, mcx));
   }
   i--;
   
@@ -295,6 +322,6 @@ void draw() {
   hb.endDraw();
   image(bb, 0, 0);
   image(hb, bmw, 0);
-  dt(bmx, bmy);
-  
+  bdt(bmx, bmy);
+  hdt(hmx - bmw, hmy);
 }
