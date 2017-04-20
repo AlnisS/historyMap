@@ -256,6 +256,32 @@ void hbuttons(float px, float py) { //px, py are offsets given to the function t
   }
 }
 
+void dt(float mcx, float mcy) {
+  float x = -1000;
+  float y = -1000;
+  int i = 0;
+  String s = "";
+  while (i < tl - 1 && (sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)) >= 32)) {
+    x = pxs[i];
+    y = pys[i];
+    s = pss[i];
+    x = x + btdx(0, mcx);
+    y = y + btdy(0, mcy);
+    
+    i++;
+    println(sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)));
+  }
+  i--;
+  
+  if (sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)) < 32) {
+    
+    fill(0);
+    rect(0, bmh - tbh, bmw + hmw, tbh);
+    fill(255);
+    text(s, 0, bmh - tbh, bmw + hmw, tbh);
+    noFill();
+  }
+}
 
 void draw() {
   bb.beginDraw();
@@ -269,4 +295,6 @@ void draw() {
   hb.endDraw();
   image(bb, 0, 0);
   image(hb, bmw, 0);
+  dt(bmx, bmy);
+  
 }
