@@ -32,7 +32,8 @@ final int hmz = 5; //heian-kyo zoom
 final int ww = bmw + hmw; //window width
 final int wh = bmh; //window height. arbitrarily based off of baghdad.
 final float sdl = 250; //lock/unlock delay
-final int tl = 3; //table length
+final int tl = 4; //table length
+final int tlb = 1; //table last baghdad info, zero indexed
 
 //declare information for mouse 
 float mx; //mouse x
@@ -223,7 +224,7 @@ void setup() {
 
 void bbuttons(float px, float py) { //px, py are offsets given to the function to display at the right place
 
-  for (int i = 0; i < tl - 1; i++) {
+  for (int i = 0; i <= tlb; i++) {
     float x = pxs[i];
     float y = pys[i];
     String t = pts[i];
@@ -239,7 +240,7 @@ void bbuttons(float px, float py) { //px, py are offsets given to the function t
 
 void hbuttons(float px, float py) { //px, py are offsets given to the function to display at the right place
 
-  for (int i = 0; i < tl - 1; i++) {
+  for (int i = tlb + 1; i < tl - 1; i++) {
     float x = pxs[i];
     float y = pys[i];
     String t = pts[i];
