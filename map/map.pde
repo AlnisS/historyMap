@@ -137,34 +137,35 @@ void render() {
   }
 
   tint(255, 255); //sets to be solid and full color
-  if (true) {
-    /* sets the temporary image to a section of the map
-     * it gets the inverse of the converted coordinates (translation 0) so that they are positive image coordinates instead of negative display coordinates
-     * the width and height is the window size
-     */
-    bb.tint(255, 255);
-    tmpi = bm.get(-1 * btdx(0, bmx), -1 * btdy(0, bmy), bmw, bmh); //gets baghdad map
-    bb.image(tmpi, 0, 0); //draws temporary image that was retrieved earlier
+  
+  //draws baghdad map
+  /* sets the temporary image to a section of the map
+   * it gets the inverse of the converted coordinates (translation 0) so that they are positive image coordinates instead of negative display coordinates
+   * the width and height is the window size
+   */
+  bb.tint(255, 255);
+  tmpi = bm.get(-1 * btdx(0, bmx), -1 * btdy(0, bmy), bmw, bmh); //gets baghdad map
+  bb.image(tmpi, 0, 0); //draws temporary image that was retrieved earlier
 
-    //draws thumbnail
-    bb.tint(255, 127);
-    bb.image(bt, 0, 0);
-    bb.noFill();
-    bb.rect(-1 * btdx(0, bmx) / btp / bmz, -1 * btdy(0, bmy) / btp / bmz, bmw / btp / bmz, bmh / btp / bmz);
-  }
-  if (true) {
-    //same as above, but with horizontal translation to get origin to match image origin
-    hb.tint(255, 255);
-    tmpi = hm.get(-1 * (htdx(0, hmx) - bmw), -1 * htdy(0, hmy), hmw, hmh); //gets heian-kyo map
-    hb.image(tmpi, 0, 0); //draws image
+  //draws thumbnail
+  bb.tint(255, 127);
+  bb.image(bt, 0, 0);
+  bb.noFill();
+  bb.rect(-1 * btdx(0, bmx) / btp / bmz, -1 * btdy(0, bmy) / btp / bmz, bmw / btp / bmz, bmh / btp / bmz);
+  
+  
+  //draws keian-kyo map
+  //same as above, but with horizontal translation to get origin to match image origin
+  hb.tint(255, 255);
+  tmpi = hm.get(-1 * (htdx(0, hmx) - bmw), -1 * htdy(0, hmy), hmw, hmh); //gets heian-kyo map
+  hb.image(tmpi, 0, 0); //draws image
 
-    //draws thumbnail
-    hb.tint(255, 127);
-    hb.image(ht, 0, 0);
-    hb.noFill();
-    hb.rect(bmw - bmw + -1 * (htdx(0, hmx) - bmw) / htp / hmz, -1 * htdy(0, hmy) / htp / hmz, hmw / htp / hmz, hmh / htp / hmz);
-    println(-1 * (htdx(0, hmx) - bmw), -1 * htdy(0, hmy));
-  }
+  //draws thumbnail
+  hb.tint(255, 127);
+  hb.image(ht, 0, 0);
+  hb.noFill();
+  hb.rect(-1 * (htdx(0, hmx) - bmw) / htp / hmz, -1 * htdy(0, hmy) / htp / hmz, hmw / htp / hmz, hmh / htp / hmz);
+  
   
   //draws mouse pointers
   bb.noFill();
