@@ -94,7 +94,7 @@ int btdy(float ta, float myi) { //same as btdx, but for y
 }
 int htdx(float ta, float mxi) { //heian-kyo to display x, given x on unscaled map
   //same as the others, but with an extra translation to the right to account for the display origin being to the right
-  return int(((mxi - bmw) / hmw) * (hmw - hm.width) + bmw + ta * hmz);
+  return int(((mxi - bmw) / hmw) * (hmw - hm.width) + ta * hmz);
 }
 int htdy(float ta, float myi) { //same as htdx, but for y
   return int((myi / hmh) * (hmh - hm.height) + ta * hmz);
@@ -158,14 +158,14 @@ void render() {
   //draws keian-kyo map
   //same as above, but with horizontal translation to get origin to match image origin
   hb.tint(255, 255);
-  tmpi = hm.get(-1 * (htdx(0, hmx) - bmw), -1 * htdy(0, hmy), hmw, hmh); //gets heian-kyo map
+  tmpi = hm.get(-1 * (htdx(0, hmx)), -1 * htdy(0, hmy), hmw, hmh); //gets heian-kyo map
   hb.image(tmpi, 0, 0); //draws image
 
   //draws thumbnail
   hb.tint(255, 127);
   hb.image(ht, 0, 0);
   hb.noFill();
-  hb.rect(-1 * (htdx(0, hmx) - bmw) / htp / hmz, -1 * htdy(0, hmy) / htp / hmz, hmw / htp / hmz, hmh / htp / hmz);
+  hb.rect(-1 * (htdx(0, hmx)) / htp / hmz, -1 * htdy(0, hmy) / htp / hmz, hmw / htp / hmz, hmh / htp / hmz);
   
   
   //draws mouse pointers
@@ -262,7 +262,7 @@ void draw() {
   
   //bbuttons(btdx(0, bmx), btdy(0, bmy));
   bbuttons(btdx(0, bmx), btdy(0, bmy));
-  hbuttons(htdx(0, hmx) - bmw, htdy(0, hmy));
+  hbuttons(htdx(0, hmx), htdy(0, hmy));
   bb.endDraw();
   hb.endDraw();
   image(bb, 0, 0);
