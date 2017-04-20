@@ -34,6 +34,8 @@ final int wh = bmh; //window height. arbitrarily based off of baghdad.
 final float sdl = 250; //lock/unlock delay
 final int tl = 4; //table length
 final int tlb = 1; //table last baghdad info, zero indexed
+final float tbw = 120; //text box width for map labels
+final float tbh = 100; //text box height for map labels
 
 //declare information for mouse 
 float mx; //mouse x
@@ -247,9 +249,9 @@ void hbuttons(float px, float py) { //px, py are offsets given to the function t
     String s = pss[i];
     hb.ellipse(px + x, py + y, 5, 5);
     hb.fill(0);
-    hb.rect(px + x - 60, py + y + 10, 120, 100);
+    hb.rect(px + x - tbw / 2, py + y + 10, tbw, tbh);
     hb.fill(255);
-    hb.text(t, px + x - 60, py + y + 10, 120, 100);
+    hb.text(t, px + x - tbw / 2, py + y + 10, tbw, tbh);
     hb.noFill();
   }
 }
