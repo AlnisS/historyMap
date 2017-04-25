@@ -72,9 +72,10 @@ float hmy;
 float hmx;
 
 //declare animation vars
-float lto;
-float ltm;
-boolean ltb;
+float lto; //offset
+float ltm; //millis
+boolean ltb; //whether to not interrupt the other
+boolean ltd; //true for heian, false for baghdad
 
 //float[] pxs;
 //float[] pys;
@@ -276,26 +277,28 @@ void bdt(float mcx, float mcy) {
     //println(sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)));
   }
   i--;
-  
+  println(s);
   if (sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)) < 32) {
     lto--;
     if (lto < -25) {
       lto = -25;
     }
     ltb = true;
+    ltd = false;
   } else {
     if (lto < 0 && !ltb) {
       lto++;
     }
     ltb = false;
   }
+  if (!ltd) {
     ltm = millis();
     fill(0);
     rect(0, bmh - tbh + 4 * lto + 100, bmw + hmw, tbh);
     fill(255);
     text(s, 0, bmh - tbh + 4 * lto + 100, bmw + hmw, tbh);
     noFill();
-  
+  }
 }
 
 void hdt(float mcx, float mcy) {
@@ -322,17 +325,21 @@ void hdt(float mcx, float mcy) {
       lto = -25;
     }
     ltb = true;
+    ltd = true;
   } else {
     if (lto < 0 && !ltb) {
       lto++;
     }
     ltb = false;
   }
-  fill(0);
-  rect(0, bmh - tbh + 4 * lto + 100, bmw + hmw, tbh);
-  fill(255);
-  text(s, 0, bmh - tbh + 4 * lto + 100, bmw + hmw, tbh);
-  noFill();
+  if (ltd) {
+    //println(s);
+    fill(0);
+    rect(0, bmh - tbh + 4 * lto + 100, bmw + hmw, tbh);
+    fill(255);
+    text(s, 0, bmh - tbh + 4 * lto + 100, bmw + hmw, tbh);
+    noFill();
+  }
   
 }
 
