@@ -36,6 +36,7 @@ final int tl = 4; //table length
 final int tlb = 1; //table last baghdad info, zero indexed
 final float tbw = 120; //text box width for map labels
 final float tbh = 100; //text box height for map labels
+final float pi = 3.1415926535897932384626433832795;
 
 //declare information for mouse 
 float mx; //mouse x
@@ -181,7 +182,8 @@ void render() {
   bb.stroke(255, 0, 0);
   hb.stroke(255, 0, 0);
   bb.ellipse(bmx, bmy, 5, 5);
-  hb.ellipse(hmx, hmy, 5, 5);
+  hb.ellipse(hmx - bmw, hmy, 5, 5);
+  println(hmx, hmy);
 }
 
 void settings() {
@@ -277,11 +279,11 @@ void bdt(float mcx, float mcy) {
     //println(sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)));
   }
   i--;
-  println(s);
+  //println(s);
   if (sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)) < 32) {
     lto--;
-    if (lto < -25) {
-      lto = -25;
+    if (lto < -10) {
+      lto = -10;
     }
     ltb = true;
     ltd = false;
@@ -294,11 +296,12 @@ void bdt(float mcx, float mcy) {
   if (!ltd) {
     ltm = millis();
     fill(0);
-    rect(0, bmh - tbh + 4 * lto + 100, bmw + hmw, tbh);
+    rect(0, bmh - tbh + an(10 * lto) + 100, bmw + hmw, tbh);
     fill(255);
-    text(s, 0, bmh - tbh + 4 * lto + 100, bmw + hmw, tbh);
+    text(s, 0, bmh - tbh + an(10 * lto) + 100, bmw + hmw, tbh);
     noFill();
   }
+  
 }
 
 void hdt(float mcx, float mcy) {
@@ -321,8 +324,8 @@ void hdt(float mcx, float mcy) {
   
   if (sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)) < 32) {
     lto--;
-    if (lto < -25) {
-      lto = -25;
+    if (lto < -10) {
+      lto = -10;
     }
     ltb = true;
     ltd = true;
@@ -335,14 +338,16 @@ void hdt(float mcx, float mcy) {
   if (ltd) {
     //println(s);
     fill(0);
-    rect(0, bmh - tbh + 4 * lto + 100, bmw + hmw, tbh);
+    rect(0, bmh - tbh + an(10 * lto) + 100, bmw + hmw, tbh);
     fill(255);
-    text(s, 0, bmh - tbh + 4 * lto + 100, bmw + hmw, tbh);
+    text(s, 0, bmh - tbh + an(10 * lto) + 100, bmw + hmw, tbh);
     noFill();
   }
   
 }
-
+float an(float in) {
+  return sin(in / 200 * pi) * 100; 
+}
 void draw() {
   bb.beginDraw();
   hb.beginDraw();
