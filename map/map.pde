@@ -71,6 +71,11 @@ float bmx;
 float hmy;
 float hmx;
 
+//declare animation vars
+float lto;
+float ltm;
+boolean ltb;
+
 //float[] pxs;
 //float[] pys;
 //String[] pts;
@@ -273,13 +278,24 @@ void bdt(float mcx, float mcy) {
   i--;
   
   if (sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)) < 32) {
-    
-    fill(0);
-    rect(0, bmh - tbh, bmw + hmw, tbh);
-    fill(255);
-    text(s, 0, bmh - tbh, bmw + hmw, tbh);
-    noFill();
+    lto--;
+    if (lto < -25) {
+      lto = -25;
+    }
+    ltb = true;
+  } else {
+    if (lto < 0 && !ltb) {
+      lto++;
+    }
+    ltb = false;
   }
+    ltm = millis();
+    fill(0);
+    rect(0, bmh - tbh + 4 * lto + 100, bmw + hmw, tbh);
+    fill(255);
+    text(s, 0, bmh - tbh + 4 * lto + 100, bmw + hmw, tbh);
+    noFill();
+  
 }
 
 void hdt(float mcx, float mcy) {
@@ -296,18 +312,28 @@ void hdt(float mcx, float mcy) {
     
     i++;
     //println(sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)));
-    println(mcx - x, x, mcx, hmx, hmx - bmw, htdx(0, mcx));
+    //println(mcx - x, x, mcx, hmx, hmx - bmw, htdx(0, mcx));
   }
   i--;
   
   if (sqrt(pow((mcx - x), 2) + pow((mcy - y), 2)) < 32) {
-    
-    fill(0);
-    rect(0, bmh - tbh, bmw + hmw, tbh);
-    fill(255);
-    text(s, 0, bmh - tbh, bmw + hmw, tbh);
-    noFill();
+    lto--;
+    if (lto < -25) {
+      lto = -25;
+    }
+    ltb = true;
+  } else {
+    if (lto < 0 && !ltb) {
+      lto++;
+    }
+    ltb = false;
   }
+  fill(0);
+  rect(0, bmh - tbh + 4 * lto + 100, bmw + hmw, tbh);
+  fill(255);
+  text(s, 0, bmh - tbh + 4 * lto + 100, bmw + hmw, tbh);
+  noFill();
+  
 }
 
 void draw() {
