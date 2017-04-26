@@ -87,6 +87,8 @@ float[] pxs = new float[tl];
 float[] pys = new float[tl];
 String[] pts = new String[tl];
 String[] pss = new String[tl];
+float[] pus = new float[tl];
+float[] pvs = new float[tl];
 
 
 int btdx(float ta, float mxi) { //baghdad to display x, given x on unscaled map
@@ -140,11 +142,11 @@ void render() {
     bmx = mx;
     bmy = my;
   }
-  if (!hml) { //if heian-kyo unlocked, move to cursor
+  if (!hml) {/*!hml) { //if heian-kyo unlocked, move to cursor*/
     hmx = mx;
     hmy = my;
   }
-
+  println(hmx, hmy);
   tint(255, 255); //sets to be solid and full color
   
   //draws baghdad map
@@ -168,6 +170,7 @@ void render() {
   hb.tint(255, 255);
   tmpi = hm.get(-1 * (htdx(0, hmx)), -1 * htdy(0, hmy), hmw, hmh); //gets heian-kyo map
   hb.image(tmpi, 0, 0); //draws image
+  //println(hmx, hmy);
 
   //draws thumbnail
   hb.tint(255, 127);
@@ -183,7 +186,7 @@ void render() {
   hb.stroke(255, 0, 0);
   bb.ellipse(bmx, bmy, 5, 5);
   hb.ellipse(hmx - bmw, hmy, 5, 5);
-  println(hmx, hmy);
+  
 }
 
 void settings() {
@@ -225,7 +228,9 @@ void setup() {
     pxs[i] = info.getFloat(i, 0);
     pys[i] = info.getFloat(i, 1);
     pts[i] = info.getString(i, 2);
-    pss[i]  = info.getString(i, 3);
+    pss[i] = info.getString(i, 3);
+    pus[i] = info.getFloat(i, 4);
+    pvs[i] = info.getFloat(i, 5);
   }
 }
 
@@ -287,6 +292,9 @@ void bdt(float mcx, float mcy) {
     }
     ltb = true;
     ltd = false;
+    hmx = pus[i] + bmw;
+    hmy = pvs[i];
+    
   } else {
     if (lto < 0 && !ltb) {
       lto++;
@@ -348,18 +356,25 @@ void hdt(float mcx, float mcy) {
 float an(float in) {
   return sin(in / 200 * pi) * 100; 
 }
+
+float am(float in) {
+  return cos(in / 100 * pi) * 100;
+}
 void draw() {
   bb.beginDraw();
   hb.beginDraw();
   render();
+  println(hmx, hmy);
   
   //bbuttons(btdx(0, bmx), btdy(0, bmy));
   bbuttons(btdx(0, bmx), btdy(0, bmy));
   hbuttons(htdx(0, hmx), htdy(0, hmy));
+  
   bb.endDraw();
   hb.endDraw();
   image(bb, 0, 0);
   image(hb, bmw, 0);
   bdt(bmx, bmy);
   hdt(hmx - bmw, hmy);
+  
 }
