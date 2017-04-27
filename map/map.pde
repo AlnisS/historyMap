@@ -196,8 +196,8 @@ void settings() {
 void setup() {
   bm = loadImage("bm.png"); //load baghdad map
   bt = loadImage("bm.png"); //load baghdad thumbnail
-  hm = loadImage("hm.jpg"); //load heian-kyo map
-  ht = loadImage("hm.jpg"); //load heian-kyo thumbnail
+  hm = loadImage("nhmr.jpg"); //load heian-kyo map
+  ht = loadImage("nhmr.jpg"); //load heian-kyo thumbnail
 
   bt.resize(bmw / btp, bmh / btp); //resize baghdad thumbnail to be fraction of original
   ht.resize(hmw / htp, hmh / htp); //resize heian-kyo thumbnail to be fraction of original
