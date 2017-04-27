@@ -337,6 +337,8 @@ void hdt(float mcx, float mcy) {
     }
     ltb = true;
     ltd = true;
+    bmx = pus[i];
+    bmy = pvs[i];
   } else {
     if (lto < 0 && !ltb) {
       lto++;
