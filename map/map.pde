@@ -146,7 +146,7 @@ void render() {
     hmx = mx;
     hmy = my;
   }
-  println(hmx, hmy);
+  //println(hmx, hmy);
   tint(255, 255); //sets to be solid and full color
   
   //draws baghdad map
@@ -292,7 +292,7 @@ void bdt(float mcx, float mcy) {
     }
     ltb = true;
     ltd = false;
-    hmx = pus[i] + bmw;
+    hmx = pus[i]; //+bmw
     hmy = pvs[i];
     
   } else {
@@ -366,7 +366,7 @@ void draw() {
   bb.beginDraw();
   hb.beginDraw();
   render();
-  println(hmx, hmy);
+  //println(hmx, hmy);
   
   //bbuttons(btdx(0, bmx), btdy(0, bmy));
   bbuttons(btdx(0, bmx), btdy(0, bmy));
@@ -378,5 +378,5 @@ void draw() {
   image(hb, bmw, 0);
   bdt(bmx, bmy);
   hdt(hmx - bmw, hmy);
-  
+  println(bmx, bmy, hmx, hmy);
 }
